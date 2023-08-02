@@ -20,8 +20,8 @@ const replace = curry((regex, replacement, str) =>
   str.replace(regex, replacement)
 );
 
-const replaceVowerls = replace(/[AEIOU]/gi, '!');
-const result = replaceVowerls('Hey I have words');
+const replaceVowels = replace(/[AEIOU]/gi, '!');
+const result = replaceVowels('Hey I have words');
 
 console.log(result);
 
