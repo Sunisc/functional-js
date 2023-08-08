@@ -4,7 +4,8 @@ const Box = (x) => {
         // Returns a function that applies a function and returns it in a box
         map: f => Box(f(x)),
         fold: f => f(x),
-        inspect: `Box(${x})`
+        chain: f => f(x),
+        inspect: () => `Box(${x})`
     }
 }
 
@@ -38,3 +39,22 @@ const halfTheFirstLargeNumber = xs => {
 
 
 console.log(halfTheFirstLargeNumber([1, 3, 50]));
+
+// Exercise - Convert the function below using the functor monad
+
+const applyDiscount_ = (price, discount) => {
+  const cents = moneyToFloat(price)
+  const savings = percentToFloat(discount)
+  return cents - (cents * savings)
+}
+
+const applyDiscount = (price, discount) => {
+	return Box(moneyToFloat(price))
+        // can also fold
+        .chain(cents => 
+            Box(percentToFloat(discount))
+                .map(savings => cents - (cents * savings))
+            )
+        .fold(x => x)
+}  
+
